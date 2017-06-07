@@ -74,7 +74,7 @@ namespace TurfAppWpf
                 {
                     mainEvent = new Event(dialog.NewEvent.Name, dialog.NewEvent.Id);
                     mainEvent.CreateEvent();
-                    LblCurrentEvent.Content = mainEvent.Name;
+                    lbCurrEvent.Content = mainEvent.Name;
                 }
                 else
                 {
@@ -93,7 +93,7 @@ namespace TurfAppWpf
             if (dialog.DialogResult.Value && dialog.DialogResult.HasValue)
             {
                 mainEvent = dialog.NewEvent;
-                LblCurrentEvent.Content = mainEvent.Name;
+                lbCurrEvent.Content = mainEvent.Name;
             }
         }
 
@@ -123,7 +123,7 @@ namespace TurfAppWpf
         // gets all the products out of the database and creates buttons for them
         public void CreateButtons(int pricelistId)
         {
-            lbFris.Items.Clear();
+            lbSoda.Items.Clear();
             List<Product> products = Database.GetProducts(pricelistId);
             foreach (Product currProduct in products)
             {
@@ -141,7 +141,7 @@ namespace TurfAppWpf
                 margin.Bottom = 5;
                 button.Margin = margin;
                 button.Click += BtnProductAdd; // add onlick event to be "BtnProductAdd"
-                lbFris.Items.Add(button);    // adds it to the listbox
+                lbSoda.Items.Add(button);    // adds it to the listbox
 
             }
         }
