@@ -44,11 +44,12 @@ namespace TurfAppWpf
         private void LoadPricelist(Pricelist currPricelist)
         {
             dgProducts.Items.Clear();
-            foreach (Product currProduct in currPricelist.Products)
-            {
+            dgProducts.ItemsSource = currPricelist.Products;
+            //foreach (Product currProduct in currPricelist.Products)
+            //{
                 
-                dgProducts.Items.Add(currProduct);
-            }
+            //    dgProducts.Items.Add(currProduct);
+            //}
         }
 
         private void cbbPricelist_DropDownClosed(object sender, EventArgs e)
@@ -65,9 +66,5 @@ namespace TurfAppWpf
 
         }
 
-        private void dgProducts_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-        {
-            MessageBox.Show("edit");
-        }
     }
 }
