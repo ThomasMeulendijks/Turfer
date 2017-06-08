@@ -7,6 +7,17 @@
         mc:Ignorable="d"
         Title="Turfer" Height="720" Width="1280">
     <Grid>
+        <Label Content="Current Event:" Margin="927,52,174,598" FontSize="22" FontWeight="Bold" Panel.ZIndex="10001" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="lbCurrEvent" Content="EventName" Margin="1100,53,0,599" FontSize="18"  Panel.ZIndex="10000" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Width="159" Height="37">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.69"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
         <TabControl HorizontalAlignment="Left"  Margin="0,0,-0.4,0" VerticalAlignment="Top" TabStripPlacement="Top" Width="1274" Height="690">
             <TabItem Header="products">
                 <Grid>
@@ -97,7 +108,5 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Label Content="Current Event:" Margin="923,23,20.6,628.4" FontSize="24" FontWeight="Bold"/>
-        <Label x:Name="lbCurrEvent" Content="EventName" Margin="923,55,20.6,596.4" FontSize="24"/>
     </Grid>
 </Window>

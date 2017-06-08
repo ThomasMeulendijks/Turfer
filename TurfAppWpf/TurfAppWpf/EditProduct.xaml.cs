@@ -19,11 +19,14 @@ namespace TurfAppWpf
     /// </summary>
     public partial class EditProduct : Window
     {
-        List<Pricelist> Pricelists;
+        //PUB PROPERTYS
+        public List<Product> ChangedProducts { get; set; }
+        // CONSTRUCTOR
         public EditProduct()
         {
             InitializeComponent();
-            Pricelists = Database.GetPricelists();
+            List<Pricelist> Pricelists = Database.GetPricelists();
+            ChangedProducts = new List<Product>();
             cbbPricelist.ItemsSource = Pricelists;
             dgProducts.IsReadOnly = false;
             dgProducts.CanUserAddRows = false;
@@ -38,18 +41,17 @@ namespace TurfAppWpf
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-
+            foreach (Product currproduct in ChangedProducts)
+            {
+                Database.EditProduct(currproduct.Id, ((Pricelist)cbbPricelist.SelectedItem).Id, currproduct.Name, currproduct.Volume, currproduct.RetailPrice);
+            }
+            Close();
         }
 
         private void LoadPricelist(Pricelist currPricelist)
         {
             dgProducts.Items.Clear();
             dgProducts.ItemsSource = currPricelist.Products;
-            //foreach (Product currProduct in currPricelist.Products)
-            //{
-                
-            //    dgProducts.Items.Add(currProduct);
-            //}
         }
 
         private void cbbPricelist_DropDownClosed(object sender, EventArgs e)
@@ -66,5 +68,21 @@ namespace TurfAppWpf
 
         }
 
+        private void dgProducts_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            ChangedProducts.Add((Product)e.Row.Item);
+            //switch (e.Column.SortMemberPath)
+            //{
+            //    case "RetailPrice" :
+            //        MessageBox.Show(((Product)e.Row.Item).RetailPrice.ToString());
+            //        break;
+            //    case "Name":
+            //        MessageBox.Show(((Product)e.Row.Item).Name);
+            //        break;
+            //    case "Volume":
+            //        MessageBox.Show(((Product)e.Row.Item).Volume.ToString());
+            //        break;
+            //}
+        }
     }
 }

@@ -196,6 +196,34 @@ namespace TurfAppWpf
 
             }
         }
+        public static void EditProduct(int productId ,int pricelistId,string productName,int volume, decimal retailPrice)
+        {
+            using (SqlConnection conn = new SqlConnection(Helper.CnnVal()))
+            {
+                Connect(conn);
+                string commandString = string.Format("IF EXISTS( " +
+                                                    "Select Product.ID, Product.Name, Product.Volume_mL, Product_Pricelist.Pricelist_ID, Product_Pricelist.Price From Product_Pricelist " +
+                                                    "INNER JOIN Product ON Product_Pricelist.Product_ID = Product.ID " +
+                                                    "Where Product_Pricelist.Product_ID =  {0} " +
+                                                    "AND Product_Pricelist.Pricelist_ID = {1}) " +
+                                                    "BEGIN " +
+                                                    "Update Product_Pricelist SET Price = {4} " +
+                                                    "WHERE Product_ID = {0} AND Pricelist_ID = {1} " +
+                                                    "END " +
+                                                    "ELSE " +
+                                                    "BEGIN " +
+                                                    "INSERT INTO Product_Pricelist(Product_ID, Pricelist_ID, Price) VALUES({0} , {1}, {4}) " +
+                                                    "END " +
+                                                    "UPDATE Product SET[Name] = '{2}' WHERE ID = {0} " +
+                                                    "UPDATE Product SET Volume_mL = {3} WHERE ID = {0}; ", productId, pricelistId, productName, volume, retailPrice);
+
+                using (SqlCommand command = new SqlCommand(commandString, conn))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+            }
+        }
 
         //checks if a product is allredy sold in this event if so increases the "Count"  if not inserts a new row with the product and sets the count.
         public static void SoldProduct(int productID, int amount, int eventID)
