@@ -84,5 +84,11 @@ namespace TurfAppWpf
             //        break;
             //}
         }
+
+        private void cbbPricelist_DropDownOpened(object sender, EventArgs e)
+        {
+            dgProducts.ItemsSource = null;
+            dgProducts.Items.Clear();
+        }
     }
 }

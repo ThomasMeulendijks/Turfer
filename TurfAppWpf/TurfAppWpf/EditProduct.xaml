@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="EditProduct" Height="389.011" Width="641.209">
     <Grid Margin="0,0,2,0">
-        <ComboBox x:Name="cbbPricelist" HorizontalAlignment="Left" Margin="68,9,0,0" VerticalAlignment="Top" Width="120" DropDownClosed="cbbPricelist_DropDownClosed">
+        <ComboBox x:Name="cbbPricelist" HorizontalAlignment="Left" Margin="68,9,0,0" VerticalAlignment="Top" Width="120" DropDownClosed="cbbPricelist_DropDownClosed" DropDownOpened="cbbPricelist_DropDownOpened">
            <!-- <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <CheckBox
