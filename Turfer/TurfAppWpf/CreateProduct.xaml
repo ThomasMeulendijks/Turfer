@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TurfAppWpf"
         mc:Ignorable="d"
-        Title="CreateProduct" Height="300" Width="300">
-    <Grid>
-        <Label Content="Create product" HorizontalAlignment="Left" Margin="92,20,0,0" VerticalAlignment="Top"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="56,56,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbProductName" HorizontalAlignment="Left" Height="23" Margin="130,60,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Create product" HorizontalAlignment="Left" Margin="92,112,0,0" VerticalAlignment="Top" Width="102" Height="28" Click="btnCreateProduct"/>
+        Title="CreateProduct" Height="216.363" Width="265.454">
+    <Grid Margin="0,0,2,2">
+        <Label Content="Create product" HorizontalAlignment="Left" Margin="80,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.307,0.371"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="68,50,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbProductName" HorizontalAlignment="Left" Height="23" Margin="68,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Create product" HorizontalAlignment="Left" Margin="75,127,0,0" VerticalAlignment="Top" Width="102" Height="28" Click="btnCreateProduct"/>
 
     </Grid>
 </Window>

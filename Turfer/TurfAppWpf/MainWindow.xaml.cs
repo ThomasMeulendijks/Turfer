@@ -72,7 +72,7 @@ namespace TurfAppWpf
 
                 if (!NameExists)
                 {
-                    mainEvent = new Event(dialog.NewEvent.Name, dialog.NewEvent.Id);
+                    mainEvent = dialog.NewEvent;
                     mainEvent.CreateEvent();
                     lbCurrEvent.Content = mainEvent.Name;
                 }

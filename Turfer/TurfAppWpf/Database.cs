@@ -47,10 +47,7 @@ namespace TurfAppWpf
                 {
                     while (reader.Read())
                     {
-                        events.Add(new Event(
-                            Convert.ToInt16(reader["ID"].ToString()),
-                            reader["Name"].ToString(),
-                            Convert.ToInt32(reader["Pricelist_ID"].ToString())));
+                        events.Add(ReadEvent(reader));
                     }
                     return events;
                 }
@@ -72,12 +69,7 @@ namespace TurfAppWpf
                 {
                     while (reader.Read())
                     {
-                        products.Add(new Product(
-                            Convert.ToInt16(reader["Product_ID"].ToString()),
-                            reader["Product_Name"].ToString(),
-                            Convert.ToInt16(reader["Pricelist_ID"].ToString()),
-                            Convert.ToDecimal(reader["Price"].ToString())
-                            ));
+                        products.Add(ReadProduct(reader));
                     }
                     return products;
                 }
@@ -102,12 +94,7 @@ namespace TurfAppWpf
                 {
                     while (reader.Read())
                     {
-                        products.Add(new Product(
-                            Convert.ToInt16(reader["Product_ID"].ToString()),
-                            reader["Product_Name"].ToString(),
-                            Convert.ToInt16(reader["Pricelist_ID"].ToString()),
-                            Convert.ToDecimal(reader["Price"].ToString())
-                            ));
+                        products.Add(ReadProduct(reader));
                     }
                     return products;
                 }
@@ -128,15 +115,35 @@ namespace TurfAppWpf
                 {
                     while (reader.Read())
                     {
-                        products.Add(new Product(
-                            Convert.ToInt16(reader["Product_ID"].ToString()),
-                            reader["Product_Name"].ToString()
-                            ));
+                        products.Add(ReadProduct(reader));
                     }
                     return products;
                 }
             }
         }
+        //Gets all the sold products
+        //NEEDS WORK!!!!!!!!!!!!!!!!!
+        // Return list<Sale> ?
+        public static List<Product> GetSoldProducts(int eventId)
+        {
+            List<Product> products = new List<Product>();
+            using (SqlConnection conn = new SqlConnection(Helper.CnnVal()))
+            {
+                Connect(conn);
+                string commandString = string.Format("");//NEEDS WORK!!!!!!!!!!!!!!!!!
+                using (SqlCommand command = new SqlCommand(commandString, conn))
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        products.Add(ReadProduct(reader));
+                    }
+                    return products;
+                }
+            }
+        }
+
+        // Gets all the pricelists from the database
         public static List<Pricelist> GetPricelists()
         {
             List<Pricelist> pricelists = new List<Pricelist>();
@@ -164,6 +171,30 @@ namespace TurfAppWpf
         }
 
         //
+        //Read data Extentions
+        //
+        private static Product ReadProduct( SqlDataReader reader)
+        {
+            Product currProduct = new Product(
+                Convert.ToInt16(reader["Product_ID"].ToString()),
+                reader["Product_Name"].ToString(),
+                Convert.ToInt16(reader["Pricelist_ID"].ToString()),
+                Convert.ToDecimal(reader["Price"].ToString())
+            );
+            return currProduct;
+        }
+
+        private static Event ReadEvent(SqlDataReader reader)
+        {
+            Event currEvent = new Event(
+                Convert.ToInt16(reader["ID"].ToString()),
+                reader["Name"].ToString(),
+                Convert.ToInt32(reader["Pricelist_ID"].ToString())
+            );
+            return currEvent;
+        }
+
+        //
         // Write database
         //
         public static int CreateEventReturnEventID(string eventName, int pricelistID) 
@@ -171,7 +202,7 @@ namespace TurfAppWpf
             using (SqlConnection conn = new SqlConnection(Helper.CnnVal()))
             {
                 Connect(conn);
-                string commandString = string.Format("INSERT INTO [Event] (Pricelist_ID, Name) VALUES ( {0} , '{1}' )" +
+                string commandString = string.Format("INSERT INTO [Event] ( Pricelist_ID, Name) VALUES ( {0} , '{1}' )" +
                                                      " select IDENT_CURRENT('Event') as lastid;", pricelistID, eventName);
                 using (SqlCommand command = new SqlCommand(commandString, conn))
                 using (SqlDataReader reader = command.ExecuteReader())

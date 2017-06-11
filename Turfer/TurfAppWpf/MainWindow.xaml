@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Turfer" Height="720" Width="1280">
     <Grid>
-        <Label Content="Current Event:" Margin="927,52,174,598" FontSize="22" FontWeight="Bold" Panel.ZIndex="10001" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label x:Name="lbCurrEvent" Content="EventName" Margin="1100,53,0,599" FontSize="18"  Panel.ZIndex="10000" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Width="159" Height="37">
+        <Label Content="Current Event:" Margin="927,44,174,606" FontSize="22" FontWeight="Bold" Panel.ZIndex="10001" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="lbCurrEvent" Content="EventName" Margin="1100,47,0,605" FontSize="18"  Panel.ZIndex="10000" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Width="159" Height="37">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -85,7 +85,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Label x:Name="LbAddAmount" Content="1" Margin="731.2,67,396,554.6" Width="40" Height="40" FontSize="30" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
+                    <Label x:Name="LbAddAmount" Content="1" Margin="731,63,396,559" Width="40" Height="40" FontSize="30" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
                     <Button x:Name="BtnAddAmountUP"  Content="+" HorizontalAlignment="Left" Margin="775.2,67,0,0" VerticalAlignment="Top" Width="40" Height="40" FontSize="24" FontWeight="Bold" Click="BtnAddAmountUP_OnClick" Grid.Column="1" RenderTransformOrigin="0.482,0.735" />
                     <Button x:Name="BtnAddAmountDwn" Content="-" HorizontalAlignment="Left" Margin="685.2,67,0,0" VerticalAlignment="Top" Width="40" Height="40" FontSize="24" FontWeight="Bold" Click="BtnAddAmountDwn_OnClick" Grid.Column="1"/>
 
