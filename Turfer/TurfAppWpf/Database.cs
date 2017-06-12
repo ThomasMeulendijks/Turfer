@@ -61,7 +61,7 @@ namespace TurfAppWpf
             {
                 Connect(conn);
 
-                using (SqlCommand command = new SqlCommand("SELECT Product_Pricelist.ID AS PP_ID , Product_Pricelist.Product_ID, Product.Name as Product_Name , Product.Volume_mL , Product.PurchasePrice, Product_Pricelist.Pricelist_ID, Pricelist.Name AS Pricelist_Name, Product_Pricelist.Price " +
+                using (SqlCommand command = new SqlCommand("SELECT Product_Pricelist.ID AS PP_ID , Product_Pricelist.Product_ID, Product.Name as Product_Name , Product.Volume_mL , Product.PurchasePrice, Product_Pricelist.Pricelist_ID, Pricelist.Name AS Pricelist_Name, Product_Pricelist.Price AS RetailPrice " +
                     "FROM Product_Pricelist " +
                     "INNER JOIN Product ON Product_Pricelist.Product_ID = Product.ID " +
                     "INNER JOIN Pricelist ON Product_Pricelist.Pricelist_ID = Pricelist.ID; ", conn))
@@ -69,7 +69,11 @@ namespace TurfAppWpf
                 {
                     while (reader.Read())
                     {
-                        products.Add(ReadProduct(reader));
+                        products.Add(new Product(
+                            Convert.ToInt16(reader["Product_ID"].ToString()),
+                            reader["Product_Name"].ToString(),
+                            Convert.ToInt16(reader["Pricelist_ID"].ToString()),
+                            Convert.ToDecimal(reader["RetailPrice"].ToString())));
                     }
                     return products;
                 }
@@ -84,7 +88,7 @@ namespace TurfAppWpf
             using (SqlConnection conn = new SqlConnection(Helper.CnnVal()))
             {
                 Connect(conn);
-                string commandString = string.Format("SELECT Product_Pricelist.ID AS PP_ID, Product_Pricelist.Product_ID, Product.Name as Product_Name, Product.Volume_mL, Product.PurchasePrice, Product_Pricelist.Pricelist_ID, Pricelist.Name AS Pricelist_Name, Product_Pricelist.Price " +
+                string commandString = string.Format("SELECT Product_Pricelist.ID AS PP_ID, Product_Pricelist.Product_ID, Product.Name as Product_Name, Product.Volume_mL, Product.PurchasePrice, Product_Pricelist.Pricelist_ID, Pricelist.Name AS Pricelist_Name, Product_Pricelist.Price AS RetailPrice " +
                     "FROM Product_Pricelist " +
                     "INNER JOIN Product ON Product_Pricelist.Product_ID = Product.ID " +
                     "INNER JOIN Pricelist ON Product_Pricelist.Pricelist_ID = Pricelist.ID " +
@@ -94,7 +98,11 @@ namespace TurfAppWpf
                 {
                     while (reader.Read())
                     {
-                        products.Add(ReadProduct(reader));
+                        products.Add(new Product(
+                            Convert.ToInt16(reader["Product_ID"].ToString()),
+                            reader["Product_Name"].ToString(),
+                            Convert.ToInt16(reader["Pricelist_ID"].ToString()),
+                            Convert.ToDecimal(reader["RetailPrice"].ToString())));
                     }
                     return products;
                 }
@@ -115,7 +123,10 @@ namespace TurfAppWpf
                 {
                     while (reader.Read())
                     {
-                        products.Add(ReadProduct(reader));
+                        products.Add(new Product(
+                            Convert.ToInt16(reader["Product_ID"].ToString()),
+                            reader["Product_Name"].ToString()
+                            ));
                     }
                     return products;
                 }
@@ -136,7 +147,7 @@ namespace TurfAppWpf
                 {
                     while (reader.Read())
                     {
-                        products.Add(ReadProduct(reader));
+                       // products.Add(ReadProduct(reader));
                     }
                     return products;
                 }
@@ -173,13 +184,15 @@ namespace TurfAppWpf
         //
         //Read data Extentions
         //
+
+            // Finde out if this has a use
         private static Product ReadProduct( SqlDataReader reader)
         {
             Product currProduct = new Product(
                 Convert.ToInt16(reader["Product_ID"].ToString()),
                 reader["Product_Name"].ToString(),
                 Convert.ToInt16(reader["Pricelist_ID"].ToString()),
-                Convert.ToDecimal(reader["Price"].ToString())
+                Convert.ToDecimal(reader["PurchasePrice"].ToString())
             );
             return currProduct;
         }
