@@ -132,24 +132,32 @@ namespace TurfAppWpf
                 }
             }
         }
-        //Gets all the sold products
-        //NEEDS WORK!!!!!!!!!!!!!!!!!
-        // Return list<Sale> ?
-        public static List<Product> GetSoldProducts(int eventId)
+        //Gets all the sold products from an event
+        public static List<Sale> GetSoldProducts(int eventId)
         {
-            List<Product> products = new List<Product>();
+            List<Sale> sales = new List<Sale>();
             using (SqlConnection conn = new SqlConnection(Helper.CnnVal()))
             {
                 Connect(conn);
-                string commandString = string.Format("");//NEEDS WORK!!!!!!!!!!!!!!!!!
+                string commandString = string.Format("SELECT Sale.ID AS SaleID,Sale.Event_ID AS EventID, Product_Pricelist.Product_ID AS ProductID, Product.[Name] AS ProductName, Product_Pricelist.Pricelist_ID AS PricelistID, Product_Pricelist.Price AS RetailPrice, Sale.[Count]" +
+                                                     " FROM Sale" +
+                                                     " INNER JOIN[Event] ON Sale.Event_ID = [Event].ID" +
+                                                     " INNER JOIN Product_Pricelist ON Sale.Product_Pricelist_ID = Product_Pricelist.ID" +
+                                                     " INNER JOIN Product ON Product_Pricelist.Product_ID = Product.ID" +
+                                                     " WHERE Sale.Event_ID = {0}", eventId);//NEEDS WORK!!!!!!!!!!!!!!!!!
                 using (SqlCommand command = new SqlCommand(commandString, conn))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                       // products.Add(ReadProduct(reader));
+                       sales.Add(new Sale(
+                           eventId,
+                           Convert.ToInt32(reader["Count"].ToString()),
+                           reader["ProductName"].ToString(),
+                           Convert.ToDecimal(reader["RetailPrice"].ToString())
+                           ));
                     }
-                    return products;
+                    return sales;
                 }
             }
         }

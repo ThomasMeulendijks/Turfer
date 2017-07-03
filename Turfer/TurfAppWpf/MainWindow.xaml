@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Turfer" Height="720" Width="1280">
     <Grid>
-        <Label Content="Current Event:" Margin="927,44,174,606" FontSize="22" FontWeight="Bold" Panel.ZIndex="10001" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Current Event:" Margin="927,44,174,601" FontSize="22" FontWeight="Bold" Panel.ZIndex="10001" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="44"/>
         <Label x:Name="lbCurrEvent" Content="EventName" Margin="1100,47,0,605" FontSize="18"  Panel.ZIndex="10000" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Width="159" Height="37">
             <Label.RenderTransform>
                 <TransformGroup>
@@ -18,8 +18,17 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <TabControl HorizontalAlignment="Left"  Margin="0,0,-0.4,0" VerticalAlignment="Top" TabStripPlacement="Top" Width="1274" Height="690">
-            <TabItem Header="products">
+        <ListView x:Name="lvSale" HorizontalAlignment="Left" Height="595" Margin="922,88,0,0" VerticalAlignment="Top" Panel.ZIndex="10000" Width="346">
+            <ListView.View>
+                <GridView x:Name="gvSale">
+                    <GridViewColumn x:Name="gvcProduct" DisplayMemberBinding="{Binding ProductName}" Header="Product" Width="175" />
+                    <GridViewColumn x:Name="gvcAmount" DisplayMemberBinding="{Binding AmountSold}" Header="Amount" Width="175"/>
+                    <GridViewColumn x:Name="gvcPrice" DisplayMemberBinding="{Binding ProductPrice}" Header="Price" Width="175"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TabControl x:Name="tcMainWindow" HorizontalAlignment="Left"  Margin="0,0,-0.4,0" VerticalAlignment="Top" TabStripPlacement="Top" Width="1274" Height="690" SelectionChanged="tcMainWindow_SelectionChanged">
+            <TabItem x:Name="tabProducts" Header="products">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="101*"/>
@@ -77,34 +86,18 @@
                         </TabItem>
                     </TabControl>
                     <!-- Presists in al product tabs -->
-                    <ListView HorizontalAlignment="Left" Height="595" Margin="822.2,67,0,-0.4" VerticalAlignment="Top" Width="345" Grid.Column="1">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Product" Width="175"/>
-                                <GridViewColumn Header="Amount" Width="175"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
                     <Label x:Name="LbAddAmount" Content="1" Margin="731,63,396,559" Width="40" Height="40" FontSize="30" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Grid.Column="1"/>
                     <Button x:Name="BtnAddAmountUP"  Content="+" HorizontalAlignment="Left" Margin="775.2,67,0,0" VerticalAlignment="Top" Width="40" Height="40" FontSize="24" FontWeight="Bold" Click="BtnAddAmountUP_OnClick" Grid.Column="1" RenderTransformOrigin="0.482,0.735" />
                     <Button x:Name="BtnAddAmountDwn" Content="-" HorizontalAlignment="Left" Margin="685.2,67,0,0" VerticalAlignment="Top" Width="40" Height="40" FontSize="24" FontWeight="Bold" Click="BtnAddAmountDwn_OnClick" Grid.Column="1"/>
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Admin" >
+            <TabItem x:Name="tabAdmin" Header="Admin" >
                 <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="664" Width="1268" >
                     <Button Content="Load Event" Width="84" Height="30" Click="BtnLoadEvent" Margin="122,0,1062,624" VerticalAlignment="Bottom" RenderTransformOrigin="0.148,-6.02"/>
                     <Button Content="Create Event" Width="84" Height="30" Click="BtnOpenEventCreator" Margin="10,10,1174,624"/>
                     <Button Content="Create Product" Width="84" Height="30" Click="BtnOpenProductCreator" Margin="10,45,1174,589"/>
                     <Button Content="Edit Product" Width="84" Height="30" Click="BtnOpenProductEditor" Margin="122,45,1062,589"/>
-                    <ListView HorizontalAlignment="Left" Height="595" Margin="923,69,0,0" VerticalAlignment="Top" Width="345">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Product" Width="175"/>
-                                <GridViewColumn Header="Amount" Width="175"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
                 </Grid>
             </TabItem>
         </TabControl>

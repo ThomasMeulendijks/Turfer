@@ -13,6 +13,7 @@ namespace TurfAppWpf
         public int AmountSold { get; set; }
         public string ProductName { get; set; }
         public decimal ProductPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
         //CONSTRUCTORS
 
@@ -22,6 +23,7 @@ namespace TurfAppWpf
             AmountSold = amountSold;
             ProductName = productName;
             ProductPrice = productPrice;
+            TotalPrice = AmountSold * ProductPrice;
         }
     }
 }

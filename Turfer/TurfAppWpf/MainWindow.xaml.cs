@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using TurfAppWpf;
 
@@ -40,8 +41,49 @@ namespace TurfAppWpf
             int amount = Convert.ToInt32(LbAddAmount.Content);
             LbAddAmount.Content = 1;
             mainEvent.SoldProduct(productID, amount);
+            UpdateListViewSale();
         }
 
+        #region [Sales list and everything with it]
+        private void UpdateListViewSale()
+        { 
+            // I am using an incredably bad workaround to hide the admin collum that contains the prices by making the collums so big you cant see it
+            if (tcMainWindow.SelectedIndex == 0)
+            {
+                setCollumWidths(175);
+                
+            }
+            else if (tcMainWindow.SelectedIndex == 1)
+            {
+                setCollumWidths(115);
+                
+            }
+            if (mainEvent != null)
+            {
+                lvSale.ItemsSource = null;
+                lvSale.Items.Clear();
+                lvSale.ItemsSource = Database.GetSoldProducts(mainEvent.Id);
+            }
+            
+        }
+
+        private void setCollumWidths(int width)
+        {
+            for (int i = 0; i < gvSale.Columns.Count; i++)
+            {
+                gvSale.Columns[i].Width = width;
+            }
+        }
+
+        private void tcMainWindow_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl)
+            {
+                Console.WriteLine("testhelp");
+                UpdateListViewSale(); 
+            }
+        }
+        #endregion]
         #region [Open window methodes]
         // opens the event creator dialog
         private void BtnOpenEventCreator(object sender, RoutedEventArgs e)
@@ -94,6 +136,7 @@ namespace TurfAppWpf
             {
                 mainEvent = dialog.NewEvent;
                 lbCurrEvent.Content = mainEvent.Name;
+                UpdateListViewSale();
             }
         }
 
@@ -167,6 +210,7 @@ namespace TurfAppWpf
         public MainWindow()
         {
             InitializeComponent();
+
         }
     }
 }
